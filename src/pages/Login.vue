@@ -2,7 +2,7 @@
   <v-layout align-center justify-center style="background-color: #f5f5f5;height: calc(100vh - 64px)">
     <v-card class="mt-12" style="width: 40%">
       <v-card-text class="pa-12">
-        <v-form >
+        <v-form @submit.prevent="signIn">
           <v-card-title style="justify-content: center"> Login </v-card-title>
           <v-alert color="red" class="white--text" v-if="errorMessage !== ''">
             {{ errorMessage }}
@@ -35,14 +35,10 @@
 </template>
 
 <script>
+import publicApi from "@/api";
+
 export default {
-  mounted() {
-    this.$store.dispatch("product/fetchProducts")
-    this.$store.dispatch("product/getReviews",{
-      product_id: this.$route.params.id
-    })
-  },
-  name: "Product",
+  name: "Login",
   data: () => ({
     email:'',
     password:'',
@@ -50,5 +46,25 @@ export default {
     rating: 5,
     commentedText: "",
   }),
+  methods:{
+    signIn(){
+      publicApi.post("/auth/login",{
+        email: this.email,
+        password: this.password
+      }).then((res) =>{
+        window.localStorage.setItem("access_token", res.data.token);
+        window.localStorage.setItem("name", res.data.name);
+        window.localStorage.setItem("id", res.data.id);
+        this.$store.commit("user/setLoggedIn", true);
+        this.$store.commit("user/setUserDetails", {
+          username: res.data.name,
+          id: res.data.id,
+        });
+        this.$router.push("/")
+      }).catch((err) =>{
+        this.errorMessage = err.response.data.message
+      })
+    }
+  }
 };
 </script>

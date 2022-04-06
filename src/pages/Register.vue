@@ -10,7 +10,7 @@
           <v-text-field
               prepend-inner-icon="mdi-account-circle"
               name="user_name"
-              label="Username *"
+              label="Name *"
               v-model="name"
               type="text"
               outlined
@@ -24,6 +24,14 @@
               outlined
           ></v-text-field>
           <v-text-field
+              v-model="phone"
+              prepend-inner-icon="mdi-phone"
+              name="email"
+              label="Phone number *"
+              type="text"
+              outlined
+          ></v-text-field>
+          <v-text-field
               id="password"
               outlined
               v-model="password"
@@ -33,7 +41,7 @@
               type="password"
           ></v-text-field>
           <v-text-field
-              id="password"
+              id="confirm-password"
               outlined
               v-model="confirmPassword"
               prepend-inner-icon="mdi-key"
@@ -42,7 +50,7 @@
               type="password"
           ></v-text-field>
           <v-btn color="secondary" block type="submit" :loading="loading">
-            Register
+            Sign Up
           </v-btn>
           <v-btn color="secondary" to="/login" block class="mt-2" outlined>
             Login
@@ -55,16 +63,18 @@
 
 <script>
 
+import publicApi from "@/api";
+
 export default {
   name: "Register",
   data() {
     return {
       errorMessage: "",
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      shippingAddress: "",
+      name: "ashok",
+      email: "ashok@gmail.com",
+      password: "password",
+      confirmPassword: "password",
+      phone:"123",
       loading: false,
     };
   },
@@ -72,7 +82,7 @@ export default {
     submitForm() {
       this.errorMessage = "";
       if (this.name === "") {
-        this.errorMessage = "Username is required";
+        this.errorMessage = "Name is required";
         return;
       }
       if (this.email === "") {
@@ -83,6 +93,11 @@ export default {
         this.errorMessage = "Password is required";
         return;
       }
+
+      if (this.phone === "") {
+        this.errorMessage = "Phone number is required";
+        return;
+      }
       if (this.confirmPassword === "") {
         this.errorMessage = "Confirm password is required";
         return;
@@ -91,11 +106,23 @@ export default {
         this.errorMessage = "Password and confirm password doesn't match";
         return;
       }
-      if (this.shippingAddress === "") {
-        this.errorMessage = "Shipping address is required";
-        return;
-      }
+
       this.loading = true;
+      publicApi.post("/users",{
+        name: this.name,
+        email:this.email,
+        password: this.password,
+        phone: this.phone
+      }).then((res) => {
+        this.$store.commit('notification/showSuccessMessage',res.data.message)
+        setTimeout(() => {
+          this.$router.push("/login")
+        },1000)
+        console.log(res)
+      }).catch((err) => {
+        this.errorMessage = err.response.data.message
+        this.loading = false;
+      })
 
     },
   },

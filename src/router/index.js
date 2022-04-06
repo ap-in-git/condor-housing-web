@@ -19,11 +19,6 @@ Vue.use(VueRouter);
                 component: ()=>import("../pages/EachHouse"),
             },
             {
-                path: "/checkout",
-                name:"CheckoutPage",
-                component: ()=>import("../pages/CheckoutPage"),
-            },
-            {
                 path: "/login",
                 name:"Login",
                 component: ()=>import("../pages/Login"),
@@ -37,6 +32,21 @@ Vue.use(VueRouter);
                 path: "/add",
                 name:"Add",
                 component: ()=>import("../pages/AddProduct"),
+            },
+            {
+                path: "/product-edit/:id",
+                name:"ProductEdit",
+                component: ()=>import("../pages/EditProduct"),
+            },
+            {
+                path: "/my-listing",
+                name:"MyListing",
+                component: ()=>import("../pages/my-list"),
+            },
+            {
+                path: "/saved-listing",
+                name:"SavedListing",
+                component: ()=>import("../pages/saved-list"),
             }
 
 ];

@@ -25,98 +25,33 @@
         <h3>Popular houses</h3>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col cols="4" v-for="popular_product in popular_products" :key="popular_product._id">
           <v-card
               class="mx-auto"
               max-width="344"
           >
             <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                :src="popular_product.images[0]"
                 height="200px"
             ></v-img>
 
             <v-card-title>
-              Beautiful apartment
+              {{ popular_product.name }}
             </v-card-title>
 
             <v-card-subtitle>
-              Waterloo,Ontario
+              {{ popular_product.location }}
             </v-card-subtitle>
             <v-divider/>
             <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi architecto aspernatur eius esse, expedita fuga ipsum iusto necessitatibus praesentium quidem, repellat sint sit soluta sunt tenetur totam veritatis voluptatem!
+              {{popular_product.description}}
             </v-card-text>
 
             <v-card-actions>
               <div/>
               <v-spacer></v-spacer>
-
               <v-btn
-                  text
-              >
-                View details
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>     <v-col>
-        <v-card
-            class="mx-auto"
-            max-width="344"
-        >
-          <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="200px"
-          ></v-img>
-
-          <v-card-title>
-            Beautiful apartment
-          </v-card-title>
-
-          <v-card-subtitle>
-            Waterloo,Ontario
-          </v-card-subtitle>
-          <v-divider/>
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi architecto aspernatur eius esse, expedita fuga ipsum iusto necessitatibus praesentium quidem, repellat sint sit soluta sunt tenetur totam veritatis voluptatem!
-          </v-card-text>
-
-          <v-card-actions>
-            <div/>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                text
-            >
-              View details
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-        <v-col>
-          <v-card
-              class="mx-auto"
-              max-width="344"
-          >
-            <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="200px"
-            ></v-img>
-
-            <v-card-title>
-              Beautiful apartment
-            </v-card-title>
-
-            <v-card-subtitle>
-              Waterloo,Ontario
-            </v-card-subtitle>
-            <v-divider/>
-            <v-card-text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi architecto aspernatur eius esse, expedita fuga ipsum iusto necessitatibus praesentium quidem, repellat sint sit soluta sunt tenetur totam veritatis voluptatem!
-            </v-card-text>
-            <v-card-actions>
-              <div/>
-              <v-spacer></v-spacer>
-              <v-btn
+                  @click="$router.push(`/product/${popular_product._id}`)"
                   text
               >
                 View details
@@ -128,289 +63,20 @@
       <v-row class="mt-4">
         <v-col sm="3">
           <v-list dense>
-            <v-subheader>FILTERS</v-subheader>
+            <v-subheader>FILTERS {{productType}}</v-subheader>
             <v-list-item-group
                 color="primary"
             >
-              <v-list-item>
+              <v-list-item v-for="filterItem in filterItems" :key="filterItem" selectable @click="productType=filterItem">
                 <v-list-item-content>
-                  <v-list-item-title>Condo</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Villa</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Mansions</v-list-item-title>
+                  <v-list-item-title>{{ filterItem }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-col>
         <v-col sm="9">
-          <v-card class="mt-2 mb-2">
-            <v-card-text>
-              <v-row>
-                <v-col sm="4">
-                  <v-img
-                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                      height="150px"
-                  ></v-img>
-                </v-col>
-                <v-col sm="8">
-                  <h2>Beautiful Apartment</h2>
-                  <div>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                  </div>
-                  <h4 class="mt-2 mb-2">
-                    $ 15000
-                  </h4>
-                  <v-divider/>
-                  <div style="display: flex;justify-content: space-between;align-items: center;">
-                    <div class="subtitle-2 mt-2">
-                      Waterloo, Ontario
-                    </div>
-                    <v-btn
-                        style="background: white;"
-                        depressed
-                        x-small
-                    >
-                      <v-icon >
-                        mdi-bookmark-outline
-                      </v-icon>
-                      Save
-                    </v-btn>
-                  </div>
-
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>    <v-card class="mt-2 mb-2">
-          <v-card-text>
-            <v-row>
-              <v-col sm="4">
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="150px"
-                ></v-img>
-              </v-col>
-              <v-col sm="8">
-                <h2>Beautiful Apartment</h2>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet autem blanditiis explicabo inventore officia porro provident voluptate. Adipisci aperiam blanditiis deleniti dicta ipsa nisi perspiciatis tempora ullam veniam vitae. Perferendis?
-                </div>
-                <h4 class="mt-2 mb-2">
-                  $ 15000
-                </h4>
-                <v-divider/>
-                <div style="display: flex;justify-content: space-between;align-items: center;">
-                  <div class="subtitle-2 mt-2">
-                    Waterloo, Ontario
-                  </div>
-                  <v-btn
-                      style="background: white;"
-                      depressed
-                      x-small
-                  >
-                    <v-icon >
-                      mdi-bookmark-outline
-                    </v-icon>
-                    Save
-                  </v-btn>
-                </div>
-
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+          <single-product :product="product" v-for="product in display_products" :key="product._id"/>
         </v-col>
       </v-row>
     </v-container>
@@ -418,7 +84,51 @@
 </template>
 
 <script>
+import publicApi from "@/api";
+import SingleProduct from "@/components/SingleProduct";
+
 export default {
   name: "Index",
+  components: {SingleProduct},
+  data:() =>({
+    filterItems :['All','Condo','Villa','Mansion','Rooms'],
+    popular_products:[],
+    products:[],
+    productType:'All'
+  }),
+  methods:{
+    isSaved(product_id){
+      const savedHousing = this.$store.state.user.saved_housing;
+
+      return savedHousing.includes(product_id);
+    },
+    toggleSave(product_id){
+      publicApi.patch(`/products/toggle-save/${product_id}`).then((res) => {
+        this.$store.commit('notification/showSuccessMessage',res.data.message)
+        this.$store.commit('user/toggleSavedListing',product_id)
+
+      })
+    }
+  },
+  computed:{
+    isLoggedIn() {
+      return this.$store.state.user.isLoggedIn;
+    },
+
+    display_products(){
+      if (this.productType === 'All')
+        return this.products;
+
+      return  this.products.filter( p => p.place_type.toLowerCase() === this.productType.toLowerCase())
+    }
+  },
+  mounted() {
+    publicApi.get('/products?type=all').then((res) =>{
+      this.products = res.data;
+    })
+    publicApi.get('/products?type=popular').then((res) =>{
+      this.popular_products = res.data;
+    })
+  }
 }
 </script>
