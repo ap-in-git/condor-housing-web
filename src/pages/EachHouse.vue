@@ -83,9 +83,9 @@
     <v-container fluid class="pr-16">
       <v-row class="my-6">
         <h3>Comments</h3>
-        <v-col sm="12" v-for="item in comments" :key="item.id">
+        <v-col sm="12" v-for="item in reviews" :key="item.id">
           <v-card
-            v-if="product.id == item.productID"
+            v-if="product.id == item.product_id"
             class="my-2"
             elevation="0"
           >
@@ -240,21 +240,6 @@ export default {
     commentedText: "",
   }),
   computed: {
-    averageReview() {
-      const id = this.$route.params.id;
-      const reviews = this.$store.state.product.reviews.filter(
-        (p) => p.product_id == id
-      );
-      if (reviews.length === 0) {
-        return 0;
-      }
-      let totalReview = 0;
-
-      for (let i = 0; i < reviews.length; i++) {
-        totalReview = totalReview + reviews[i].rating;
-      }
-      return totalReview / reviews.length;
-    },
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
     },
