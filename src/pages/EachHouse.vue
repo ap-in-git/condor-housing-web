@@ -92,7 +92,7 @@
             <v-card-title>
               <span class="font-weight-bold mr-4">{{ "Brian Kim" }}</span>
               <small class="grey--text">{{
-                new Date(item.commentedAt).toLocaleString()
+                new Date(item.commented_at).toLocaleString()
               }}</small>
               <v-spacer />
             </v-card-title>
@@ -272,10 +272,11 @@ export default {
       this.$store.commit("cart/toggleDrawer", true);
     },
     submitForm() {
-      if (!this.isLoggedIn) {
+      /*       if (!this.isLoggedIn) {
         this.$store.commit("user/setLoginDialog", true);
         return;
-      }
+      } */
+      console.log("test");
       if (this.commentedText === "") {
         this.$store.dispatch(
           "notification/showErrorMessage",

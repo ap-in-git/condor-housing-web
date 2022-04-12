@@ -11,7 +11,7 @@ const productState = {
       console.log(payload);
       const res = await publicApi.post("/comments/", {
         text: payload.text,
-        userID: 1,
+        userID: "624c6ea8c0fa4a7033e3a7b0",
         productID: payload.product_id,
         commentedAt: new Date(),
       });
