@@ -83,14 +83,10 @@
     <v-container fluid class="pr-16">
       <v-row class="my-6">
         <h3>Comments</h3>
-        <v-col sm="12" v-for="item in reviews" :key="item.id">
-          <v-card
-            v-if="product.id == item.product_id"
-            class="my-2"
-            elevation="0"
-          >
+        <v-col sm="12" v-for="item in comments" :key="item._id">
+          <v-card class="my-2" elevation="0">
             <v-card-title>
-              <span class="font-weight-bold mr-4">{{ "Brian Kim" }}</span>
+              <span class="font-weight-bold mr-4">{{ item.user.name }}</span>
               <small class="grey--text">{{
                 new Date(item.commented_at).toLocaleString()
               }}</small>
@@ -227,28 +223,25 @@
 </template>
 
 <script>
+import publicApi from "@/api";
+
 export default {
   mounted() {
-    this.$store.dispatch("product/fetchProducts");
-    this.$store.dispatch("product/getReviews", {
-      product_id: this.$route.params.id,
+    publicApi.get("/comments?id=" + this.$route.params.id).then((res) => {
+      this.comments = res.data;
     });
   },
   name: "Product",
   data: () => ({
     rating: 5,
+    comments: [],
     commentedText: "",
   }),
   computed: {
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
     },
-    reviews() {
-      const id = this.$route.params.id;
-      return this.$store.state.product.reviews.filter(
-        (p) => p.product_id == id
-      );
-    },
+
     reviewCount() {
       const id = this.$route.params.id;
       return this.$store.state.product.reviews.filter((p) => p.product_id == id)
@@ -267,16 +260,12 @@ export default {
     },
   },
   methods: {
-    addProductToCart(product) {
-      this.$store.commit("cart/addProductToCart", product);
-      this.$store.commit("cart/toggleDrawer", true);
-    },
     submitForm() {
+      const productId = this.$route.params.id;
       /*       if (!this.isLoggedIn) {
         this.$store.commit("user/setLoginDialog", true);
         return;
       } */
-      console.log("test");
       if (this.commentedText === "") {
         this.$store.dispatch(
           "notification/showErrorMessage",
@@ -284,15 +273,11 @@ export default {
         );
         return;
       }
-      this.$store
-        .dispatch("product/addReview", {
-          text: this.commentedText,
-          product_id: this.product.id,
-        })
-        .then((message) => {
-          console.log(message);
-          this.$store.dispatch("notification/showSuccessMessage", message);
-        });
+      publicApi.post("/comments", {
+        product_id: productId,
+        text: this.commentedText,
+        user_id: window.localStorage.getItem("user_id"),
+      });
     },
     goToProduct(id) {
       this.$router.push({ name: "Product", params: { id } });
