@@ -8,46 +8,46 @@
             {{ errorMessage }}
           </v-alert>
           <v-text-field
-              prepend-inner-icon="mdi-account-circle"
-              name="user_name"
-              label="Name *"
-              v-model="name"
-              type="text"
-              outlined
+            prepend-inner-icon="mdi-account-circle"
+            name="user_name"
+            label="Name *"
+            v-model="name"
+            type="text"
+            outlined
           ></v-text-field>
           <v-text-field
-              v-model="email"
-              prepend-inner-icon="mdi-at"
-              name="email"
-              label="Email *"
-              type="text"
-              outlined
+            v-model="email"
+            prepend-inner-icon="mdi-at"
+            name="email"
+            label="Email *"
+            type="text"
+            outlined
           ></v-text-field>
           <v-text-field
-              v-model="phone"
-              prepend-inner-icon="mdi-phone"
-              name="email"
-              label="Phone number *"
-              type="text"
-              outlined
+            v-model="phone"
+            prepend-inner-icon="mdi-phone"
+            name="email"
+            label="Phone number *"
+            type="text"
+            outlined
           ></v-text-field>
           <v-text-field
-              id="password"
-              outlined
-              v-model="password"
-              prepend-inner-icon="mdi-key"
-              name="password"
-              label="Password *"
-              type="password"
+            id="password"
+            outlined
+            v-model="password"
+            prepend-inner-icon="mdi-key"
+            name="password"
+            label="Password *"
+            type="password"
           ></v-text-field>
           <v-text-field
-              id="confirm-password"
-              outlined
-              v-model="confirmPassword"
-              prepend-inner-icon="mdi-key"
-              name="password"
-              label="Confirm password *"
-              type="password"
+            id="confirm-password"
+            outlined
+            v-model="confirmPassword"
+            prepend-inner-icon="mdi-key"
+            name="password"
+            label="Confirm password *"
+            type="password"
           ></v-text-field>
           <v-btn color="secondary" block type="submit" :loading="loading">
             Sign Up
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-
 import publicApi from "@/api";
 
 export default {
@@ -70,11 +69,11 @@ export default {
   data() {
     return {
       errorMessage: "",
-      name: "ashok",
-      email: "ashok@gmail.com",
-      password: "password",
-      confirmPassword: "password",
-      phone:"123",
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
       loading: false,
     };
   },
@@ -108,22 +107,27 @@ export default {
       }
 
       this.loading = true;
-      publicApi.post("/users",{
-        name: this.name,
-        email:this.email,
-        password: this.password,
-        phone: this.phone
-      }).then((res) => {
-        this.$store.commit('notification/showSuccessMessage',res.data.message)
-        setTimeout(() => {
-          this.$router.push("/login")
-        },1000)
-        console.log(res)
-      }).catch((err) => {
-        this.errorMessage = err.response.data.message
-        this.loading = false;
-      })
-
+      publicApi
+        .post("/users", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          phone: this.phone,
+        })
+        .then((res) => {
+          this.$store.commit(
+            "notification/showSuccessMessage",
+            res.data.message
+          );
+          setTimeout(() => {
+            this.$router.push("/login");
+          }, 1000);
+          console.log(res);
+        })
+        .catch((err) => {
+          this.errorMessage = err.response.data.message;
+          this.loading = false;
+        });
     },
   },
 };

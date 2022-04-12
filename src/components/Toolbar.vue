@@ -24,14 +24,14 @@
       <a
         v-if="!isLoggedIn"
         href="#"
-        @click="$router.push('/saved-listing')"
+        @click="$router.push('/login')"
         style="text-decoration: none; color: black; margin-right: 10px"
         >Login</a
       >
       <a
         v-if="!isLoggedIn"
         href="#"
-        @click="$router.push('/saved-listing')"
+        @click="$router.push('/register')"
         style="text-decoration: none; color: black; margin-right: 10px"
         >Register</a
       >

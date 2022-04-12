@@ -3,10 +3,15 @@
     <v-row>
       <v-col cols="5">
         <v-row>
-          <v-col v-for="n in 6" :key="n" class="d-flex child-flex" cols="6">
+          <v-col
+            v-for="image in product.images"
+            :key="image"
+            class="d-flex child-flex"
+            cols="6"
+          >
             <v-img
-              :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-              :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+              :src="image"
+              :lazy-src="image"
               aspect-ratio="1"
               class="grey lighten-2"
             >
@@ -23,59 +28,38 @@
         </v-row>
       </v-col>
       <v-col cols="7">
-        <h2>Waterloo House</h2>
+        <h2>{{ product.name }}</h2>
         <v-tabs fixed-tabs background-color="indigo" dark>
           <v-tab> Overview </v-tab>
           <v-tab> Features </v-tab>
-          <v-tab-item key="1">
+          <v-tab-item key="1" class="pl-2 pr-2">
+            <p class="subtitle-1 mt-8">
+              {{ product.description }}
+            </p>
+          </v-tab-item>
+          <v-tab-item key="2">
             <ul style="list-style: none">
               <li>
-                <v-icon style="color: black !important" large disabled dense>
-                  mdi-bed-double-outline
-                </v-icon>
-                2 Bedrooms
+                <i class="mdi mdi-bed-double-outline"></i>
+                {{ product.no_of_bedroom }} Bedrooms
               </li>
               <li>
                 <i class="mdi mdi-shower"></i>
-                2 Bathrooms
+                {{ product.no_of_bathroom }} Bathrooms
               </li>
               <li>
                 <i class="mdi mdi-calendar"></i>
-                Built in 1940
+                Built in {{ product.built_in }}
               </li>
               <li>
                 <i class="mdi mdi-rectangle-outline"></i>
-                14000 Sq ft
-              </li>
-              <li>
-                <i class="mdi mdi-home-thermometer"></i>
-                Forced air, natural gas
+                {{ product.area }} Sq ft
               </li>
               <li>
                 <i class="mdi mdi-parking"></i>
-                3 Parking
+                {{ product.no_of_parking_space }} Parking
               </li>
             </ul>
-          </v-tab-item>
-          <v-tab-item key="2" class="pl-2 pr-2">
-            <p class="subtitle-1 mt-8">
-              A BEAUTIFUL TOWNHOME AVAILABLE IN THE HEART OF WATERLOO!! Welcome
-              Home to 133 Park st Unit 303. This 1537 sqft luxury home is full
-              of high-end finishes including high ceilings on the main, elegant
-              trim and crown molding details, a contemporary open concept
-              layout, and hardwood flooring throughout most of the home. The
-              main floor features tall windows, a balcony off the kitchen, 2 pce
-              bathroom, and a beautiful wood feature wall. The upscale kitchen
-              includes Stainless Steel appliances, crisp white cabinetry, tiled
-              backsplash, granite counters and is open to the dining area and
-              large balcony. Bright and open, the main floor is the perfect
-              place to entertain guests. The Upper level has a huge Master
-              bedroom with ensuite bath and walkout to an additional private
-              balcony. The Upper level also has a spacious 2nd bedroom, 4 piece
-              bath and in suite laundry. Fantastic location....just a short walk
-              to popular restaurants (The Bauer Kitchen), shops, boutique
-              groceries (Vincenzo's) and the rest of uptown waterloo.
-            </p>
           </v-tab-item>
         </v-tabs>
       </v-col>
@@ -118,103 +102,35 @@
       <h3>Similar housing</h3>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col
+        cols="4"
+        v-for="popular_product in similarProducts"
+        :key="popular_product._id"
+      >
         <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
+          <v-img :src="popular_product.images[0]" height="200px"></v-img>
 
-          <v-card-title> Beautiful apartment </v-card-title>
+          <v-card-title>
+            {{ popular_product.name }}
+          </v-card-title>
 
-          <v-card-subtitle> Waterloo,Ontario </v-card-subtitle>
+          <v-card-subtitle>
+            {{ popular_product.location }}
+          </v-card-subtitle>
           <v-divider />
           <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium animi architecto aspernatur eius esse, expedita fuga
-            ipsum iusto necessitatibus praesentium quidem, repellat sint sit
-            soluta sunt tenetur totam veritatis voluptatem!
+            {{ popular_product.description }}
           </v-card-text>
 
           <v-card-actions>
             <div />
             <v-spacer></v-spacer>
-
-            <v-btn text> View details </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title> Beautiful apartment </v-card-title>
-
-          <v-card-subtitle> Waterloo,Ontario </v-card-subtitle>
-          <v-divider />
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium animi architecto aspernatur eius esse, expedita fuga
-            ipsum iusto necessitatibus praesentium quidem, repellat sint sit
-            soluta sunt tenetur totam veritatis voluptatem!
-          </v-card-text>
-
-          <v-card-actions>
-            <div />
-            <v-spacer></v-spacer>
-
-            <v-btn text> View details </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title> Beautiful apartment </v-card-title>
-
-          <v-card-subtitle> Waterloo,Ontario </v-card-subtitle>
-          <v-divider />
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium animi architecto aspernatur eius esse, expedita fuga
-            ipsum iusto necessitatibus praesentium quidem, repellat sint sit
-            soluta sunt tenetur totam veritatis voluptatem!
-          </v-card-text>
-          <v-card-actions>
-            <div />
-            <v-spacer></v-spacer>
-            <v-btn text> View details </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title> Beautiful apartment </v-card-title>
-
-          <v-card-subtitle> Waterloo,Ontario </v-card-subtitle>
-          <v-divider />
-          <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium animi architecto aspernatur eius esse, expedita fuga
-            ipsum iusto necessitatibus praesentium quidem, repellat sint sit
-            soluta sunt tenetur totam veritatis voluptatem!
-          </v-card-text>
-          <v-card-actions>
-            <div />
-            <v-spacer></v-spacer>
-            <v-btn text> View details </v-btn>
+            <v-btn
+              @click="$router.push(`/product/${popular_product._id}`)"
+              text
+            >
+              View details
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -227,33 +143,33 @@ import publicApi from "@/api";
 
 export default {
   mounted() {
-    publicApi.get("/comments?id=" + this.$route.params.id).then((res) => {
-      this.comments = res.data;
+    this.fetchComments();
+    publicApi.get("/products/" + this.$route.params.id).then((res) => {
+      this.product = res.data;
     });
+    publicApi
+      .get("/products?type=similar&id=" + this.$route.params.id)
+      .then((res) => {
+        this.similarProducts = res.data;
+      });
   },
   name: "Product",
   data: () => ({
     rating: 5,
     comments: [],
     commentedText: "",
+    product: {},
+    similarProducts: [],
   }),
   computed: {
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
     },
 
-    reviewCount() {
-      const id = this.$route.params.id;
-      return this.$store.state.product.reviews.filter((p) => p.product_id == id)
-        .length;
-    },
     products() {
       return this.$store.state.product.products;
     },
-    product() {
-      const id = this.$route.params.id;
-      return this.products.find((p) => p.id == id);
-    },
+
     relatedProducts() {
       const id = this.$route.params.id;
       return this.products.filter((p) => p.id !== id);
@@ -273,10 +189,23 @@ export default {
         );
         return;
       }
-      publicApi.post("/comments", {
-        product_id: productId,
-        text: this.commentedText,
-        user_id: window.localStorage.getItem("user_id"),
+      publicApi
+        .post("/comments", {
+          product_id: productId,
+          text: this.commentedText,
+        })
+        .then(() => {
+          this.$store.commit(
+            "notification/showSuccessMessage",
+            "Comment added successfully"
+          );
+          this.fetchComments();
+          this.commentedText = "";
+        });
+    },
+    fetchComments() {
+      publicApi.get("/comments?id=" + this.$route.params.id).then((res) => {
+        this.comments = res.data;
       });
     },
     goToProduct(id) {
